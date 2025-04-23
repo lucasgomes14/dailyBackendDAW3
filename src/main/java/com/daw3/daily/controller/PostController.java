@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<PostModel>> findAllPosts() {
         try {
@@ -42,9 +44,9 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostModel> addPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<PostModel> addPost(@RequestPart("post") PostDTO postDTO, @RequestPart("image") MultipartFile image) {
         try {
-            PostModel post = postMapper.from(postDTO);
+            PostModel post = postMapper.from(postDTO, image);
 
             postService.addPost(post);
 
