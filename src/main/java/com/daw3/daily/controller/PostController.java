@@ -32,6 +32,7 @@ public class PostController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<PostModel> findPostById(@PathVariable Long id) {
         try {
@@ -43,6 +44,7 @@ public class PostController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<PostModel> addPost(@RequestPart("post") PostDTO postDTO, @RequestPart("image") MultipartFile image) {
         try {
